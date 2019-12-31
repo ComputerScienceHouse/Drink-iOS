@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AppAuth
 
 class ViewController: UIViewController {
-
+    let kIssuer: String = "https://sso.csh.rit.edu/auth/realms/csh"
+    let kClientID: String? = "drink-ios"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
