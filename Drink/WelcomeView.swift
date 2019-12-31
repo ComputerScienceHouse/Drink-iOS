@@ -15,7 +15,7 @@ struct WelcomeView: View {
         UITableView.appearance().separatorColor = .clear
     }
     private var authState: OIDAuthState?
-    
+    var delegate: WelcomeViewDelegate?
     @State private var isPresented: Bool = false
 
     var body: some View {
@@ -57,7 +57,7 @@ struct WelcomeView: View {
                 
                 Button(action:
                     {
-                    
+                        self.delegate?.userTappedSignInButton()
                 }){
                     ZStack{
                         LinearGradient(gradient: Gradient(colors: [.init(red: 0.96, green: 0.13, blue: 0.48), .init(red: 0.51, green: 0.15, blue: 0.27)]), startPoint: .top, endPoint: .bottom)
@@ -92,11 +92,6 @@ struct WelcomeView_Previews: PreviewProvider {
     }
 }
 
-func buttonPressed(){
-
-
-    
-}
 
 struct Feature{
     var glyph: String!
