@@ -13,6 +13,8 @@
 		6ECBF48723BAC98900370E7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ECBF48523BAC98900370E7A /* LaunchScreen.storyboard */; };
 		6EDDD57423BAFE560078048D /* AppAuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD57323BAFE560078048D /* AppAuthConstants.swift */; };
 		6EDDD57823BB07A80078048D /* AppAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD57723BB07A80078048D /* AppAuthViewController.swift */; };
+		6EDDD57A23BB19BE0078048D /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD57923BB19BE0078048D /* WelcomeView.swift */; };
+		6EDDD57C23BB25CE0078048D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD57B23BB25CE0078048D /* Constants.swift */; };
 		F60EF84D219D88EDB9962383 /* Pods_Drink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 757F11A29A4C5D6D72C3A035 /* Pods_Drink.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		6ECBF48823BAC98900370E7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EDDD57323BAFE560078048D /* AppAuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthConstants.swift; sourceTree = "<group>"; };
 		6EDDD57723BB07A80078048D /* AppAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthViewController.swift; sourceTree = "<group>"; };
+		6EDDD57923BB19BE0078048D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		6EDDD57B23BB25CE0078048D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		757F11A29A4C5D6D72C3A035 /* Pods_Drink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,6 +71,8 @@
 				6ECBF47C23BAC98600370E7A /* SceneDelegate.swift */,
 				6EDDD57323BAFE560078048D /* AppAuthConstants.swift */,
 				6EDDD57723BB07A80078048D /* AppAuthViewController.swift */,
+				6EDDD57923BB19BE0078048D /* WelcomeView.swift */,
+				6EDDD57B23BB25CE0078048D /* Constants.swift */,
 				6ECBF48323BAC98900370E7A /* Assets.xcassets */,
 				6ECBF48523BAC98900370E7A /* LaunchScreen.storyboard */,
 				6ECBF48823BAC98900370E7A /* Info.plist */,
@@ -205,10 +211,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EDDD57A23BB19BE0078048D /* WelcomeView.swift in Sources */,
 				6EDDD57823BB07A80078048D /* AppAuthViewController.swift in Sources */,
 				6EDDD57423BAFE560078048D /* AppAuthConstants.swift in Sources */,
 				6ECBF47B23BAC98600370E7A /* AppDelegate.swift in Sources */,
 				6ECBF47D23BAC98600370E7A /* SceneDelegate.swift in Sources */,
+				6EDDD57C23BB25CE0078048D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
