@@ -9,8 +9,10 @@
 import Foundation
 
 struct AppAuthConstants{
-    static let kIssuer = ""
+    static let kIssuer =  URL(string: "https://sso.csh.rit.edu/auth/realms/csh")!
     static let kClientID = ""
-    static let kRedirectURI = ""
+    static let kRedirectURI = URL(string: "edu.rit.csh.drink:/callback")!
+    static let clientSecret = ""
+
     
 }
