@@ -46,6 +46,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E0B467C23C2971D0068710E /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6EDDD57723BB07A80078048D /* AppAuthViewController.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6E0B467D23C297B80068710E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				6ECBF47C23BAC98600370E7A /* SceneDelegate.swift */,
+				6ECBF47A23BAC98600370E7A /* AppDelegate.swift */,
+				6ECBF48323BAC98900370E7A /* Assets.xcassets */,
+				6ECBF48523BAC98900370E7A /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		6E0B467E23C297BE0068710E /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				6EDDD57923BB19BE0078048D /* WelcomeView.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		6E0B467F23C297D70068710E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6EDDD57323BAFE560078048D /* AppAuthConstants.swift */,
+				6EDDD57B23BB25CE0078048D /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		6ECBF46E23BAC98600370E7A = {
 			isa = PBXGroup;
 			children = (
@@ -67,14 +103,10 @@
 		6ECBF47923BAC98600370E7A /* Drink */ = {
 			isa = PBXGroup;
 			children = (
-				6ECBF47A23BAC98600370E7A /* AppDelegate.swift */,
-				6ECBF47C23BAC98600370E7A /* SceneDelegate.swift */,
-				6EDDD57323BAFE560078048D /* AppAuthConstants.swift */,
-				6EDDD57723BB07A80078048D /* AppAuthViewController.swift */,
-				6EDDD57923BB19BE0078048D /* WelcomeView.swift */,
-				6EDDD57B23BB25CE0078048D /* Constants.swift */,
-				6ECBF48323BAC98900370E7A /* Assets.xcassets */,
-				6ECBF48523BAC98900370E7A /* LaunchScreen.storyboard */,
+				6E0B467F23C297D70068710E /* Utilities */,
+				6E0B467E23C297BE0068710E /* Custom Views */,
+				6E0B467D23C297B80068710E /* Support */,
+				6E0B467C23C2971D0068710E /* Screens */,
 				6ECBF48823BAC98900370E7A /* Info.plist */,
 			);
 			path = Drink;
