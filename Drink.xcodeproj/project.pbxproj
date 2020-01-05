@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E0B468423C29C340068710E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B468323C29C340068710E /* NetworkManager.swift */; };
+		6E0B468723C2A0DC0068710E /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B468623C2A0DC0068710E /* Machine.swift */; };
+		6E0B468923C2A14D0068710E /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B468823C2A14D0068710E /* Slot.swift */; };
+		6E0B468B23C2A1540068710E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B468A23C2A1540068710E /* Item.swift */; };
 		6ECBF47B23BAC98600370E7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECBF47A23BAC98600370E7A /* AppDelegate.swift */; };
 		6ECBF47D23BAC98600370E7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECBF47C23BAC98600370E7A /* SceneDelegate.swift */; };
 		6ECBF48423BAC98900370E7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ECBF48323BAC98900370E7A /* Assets.xcassets */; };
@@ -21,6 +25,10 @@
 /* Begin PBXFileReference section */
 		1CC522C55648AF12A2A4AB91 /* Pods-Drink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drink.debug.xcconfig"; path = "Target Support Files/Pods-Drink/Pods-Drink.debug.xcconfig"; sourceTree = "<group>"; };
 		3F9FC8CE29189E5D0B197C6B /* Pods-Drink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drink.release.xcconfig"; path = "Target Support Files/Pods-Drink/Pods-Drink.release.xcconfig"; sourceTree = "<group>"; };
+		6E0B468323C29C340068710E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6E0B468623C2A0DC0068710E /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		6E0B468823C2A14D0068710E /* Slot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
+		6E0B468A23C2A1540068710E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		6ECBF47723BAC98600370E7A /* Drink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ECBF47A23BAC98600370E7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ECBF47C23BAC98600370E7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +90,24 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		6E0B468223C29C230068710E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6E0B468323C29C340068710E /* NetworkManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		6E0B468523C2A0D30068710E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6E0B468623C2A0DC0068710E /* Machine.swift */,
+				6E0B468823C2A14D0068710E /* Slot.swift */,
+				6E0B468A23C2A1540068710E /* Item.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6ECBF46E23BAC98600370E7A = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +129,8 @@
 		6ECBF47923BAC98600370E7A /* Drink */ = {
 			isa = PBXGroup;
 			children = (
+				6E0B468523C2A0D30068710E /* Models */,
+				6E0B468223C29C230068710E /* Manager */,
 				6E0B467F23C297D70068710E /* Utilities */,
 				6E0B467E23C297BE0068710E /* Custom Views */,
 				6E0B467D23C297B80068710E /* Support */,
@@ -246,9 +274,13 @@
 				6EDDD57A23BB19BE0078048D /* WelcomeView.swift in Sources */,
 				6EDDD57823BB07A80078048D /* AppAuthViewController.swift in Sources */,
 				6EDDD57423BAFE560078048D /* AppAuthConstants.swift in Sources */,
+				6E0B468923C2A14D0068710E /* Slot.swift in Sources */,
 				6ECBF47B23BAC98600370E7A /* AppDelegate.swift in Sources */,
+				6E0B468423C29C340068710E /* NetworkManager.swift in Sources */,
+				6E0B468B23C2A1540068710E /* Item.swift in Sources */,
 				6ECBF47D23BAC98600370E7A /* SceneDelegate.swift in Sources */,
 				6EDDD57C23BB25CE0078048D /* Constants.swift in Sources */,
+				6E0B468723C2A0DC0068710E /* Machine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

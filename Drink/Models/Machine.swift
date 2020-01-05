@@ -1,5 +1,5 @@
 //
-//  SessionManager.swift
+//  Machine.swift
 //  Drink
 //
 //  Created by Lonnie Gerol on 1/5/20.
@@ -7,8 +7,9 @@
 //
 
 import Foundation
-
-class SessionManager{
-    static let shared = SessionManager()
-    private init(){}
+struct Machine: Codable{
+    var displayName: String
+    var isOnline: String
+    var slots: [Slot]
 }
+
