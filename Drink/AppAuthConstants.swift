@@ -11,7 +11,7 @@ import Foundation
 struct AppAuthConstants{
     static let kIssuer =  URL(string: "https://sso.csh.rit.edu/auth/realms/csh")!
     static let kClientID = ""
-    static let kRedirectURI = URL(string: "edu.rit.csh.drink:/callback")!
+    static let kRedirectURL = URL(string: "edu.rit.csh.drink:/callback")!
     static let clientSecret = ""
 
     
