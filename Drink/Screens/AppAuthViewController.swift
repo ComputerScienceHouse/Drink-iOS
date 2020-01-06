@@ -16,7 +16,6 @@ protocol WelcomeViewDelegate{
 }
 
 class AppAuthViewController: UIViewController, WelcomeViewDelegate {
-    private var authState: OIDAuthState?
     var hostingController: UIHostingController<WelcomeView>!
     
     override func viewDidLoad() {
@@ -40,34 +39,34 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
     
     func userTappedSignInButton() {
         OIDAuthorizationService.discoverConfiguration(forIssuer: AppAuthConstants.kIssuer) { (configuration, error) in
-                                guard let config = configuration else{
-                                    print("Error retrieving discovery document: \(error?.localizedDescription ?? "unknown error")")
-                                    return
-                                }
-                                // builds authentication request
-                                let request = OIDAuthorizationRequest(configuration: config,
-                                                                      clientId: AppAuthConstants.kClientID,
-                                                                      clientSecret: AppAuthConstants.clientSecret,
-                                                                      scopes: [OIDScopeOpenID, OIDScopeProfile],
-                                                                      redirectURL: AppAuthConstants.kRedirectURL,
-                                                                      responseType: OIDResponseTypeCode,
-                                                                      additionalParameters: nil)
-                                //performs authentication request
-                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                
-                   appDelegate.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: self) { (authState, error) in
-                                    if let authState = authState{
-                                        NetworkManager.shared.authState = authState
-                                        authState.stateChangeDelegate = NetworkManager.shared
-                                        NetworkManager.shared.saveState()
-                                        DispatchQueue.main.async {
-                                            self.dismiss(animated: true, completion: nil)
-                                        }
-                                    } else {
-                                        NetworkManager.shared.authState = authState
-                                    }
-                                }
-                            }
+            guard let config = configuration else{
+                print("Error retrieving discovery document: \(error?.localizedDescription ?? "unknown error")")
+                return
+            }
+            // builds authentication request
+            let request = OIDAuthorizationRequest(configuration: config,
+                                                  clientId: AppAuthConstants.kClientID,
+                                                  clientSecret: AppAuthConstants.clientSecret,
+                                                  scopes: [OIDScopeOpenID, OIDScopeProfile],
+                                                  redirectURL: AppAuthConstants.kRedirectURL,
+                                                  responseType: OIDResponseTypeCode,
+                                                  additionalParameters: nil)
+            //performs authentication request
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            appDelegate.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: self) { (authState, error) in
+                if let authState = authState{
+                    NetworkManager.shared.authState = authState
+                    authState.stateChangeDelegate = NetworkManager.shared
+                    NetworkManager.shared.saveState()
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                } else {
+                    NetworkManager.shared.authState = authState
+                }
+            }
+        }
     }
     
 }

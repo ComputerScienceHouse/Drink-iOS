@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createRootNC(title: String, machineRepresentation: String) -> UINavigationController{
-        let itemListVC = ItemsListTableVC()
+        let itemListVC = ItemsListVC()
         itemListVC.title = title
         itemListVC.tabBarItem = UITabBarItem(title: itemListVC.title, image: UIImage(systemName: machineRepresentation), selectedImage: nil)
         return UINavigationController(rootViewController: itemListVC)

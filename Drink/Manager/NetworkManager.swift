@@ -77,7 +77,6 @@ class NetworkManager: NSObject{
     }
     
     func saveState() {
-        print("ran")
         var data: Data? = nil
         if let authState = self.authState {
             do{

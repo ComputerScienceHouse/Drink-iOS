@@ -9,13 +9,17 @@
 import UIKit
 import SwiftUI
 
-class DKTabBarVC: UITabBarController {
+//called when a user logs in or logs out
+protocol SessionDelegate{
+    func userDidSignIn()
+    func userDidSignOut()
+}
 
+class DKTabBarVC: UITabBarController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -23,10 +27,10 @@ class DKTabBarVC: UITabBarController {
             let containerVC = AppAuthViewController()
             containerVC.isModalInPresentation = true
             self.present(containerVC, animated: true, completion: nil)
-                    }
-                else{
-                
-                }
+        }
+        else{
+            
+        }
     }
-
+    
 }
