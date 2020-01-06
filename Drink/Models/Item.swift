@@ -9,7 +9,6 @@
 import Foundation
 
 struct Item: Codable{
-    var id: Int
     var name: String
     var price: Int
     

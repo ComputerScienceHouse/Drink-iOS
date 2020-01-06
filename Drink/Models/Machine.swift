@@ -7,9 +7,22 @@
 //
 
 import Foundation
+
+struct Machines: Codable{
+    let machines: [Machine]
+    let message: String
+}
+
 struct Machine: Codable{
-    var displayName: String
-    var isOnline: String
-    var slots: [Slot]
+    let displayName: String
+    let isOnline: Bool
+    let slots: [Slot]
+    
+    enum CodingKeys: String, CodingKey {
+        case displayName = "display_name"
+        case isOnline = "is_online"
+        case slots
+    }
+    
 }
 

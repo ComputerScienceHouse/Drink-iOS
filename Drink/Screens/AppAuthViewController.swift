@@ -24,11 +24,19 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
         var view = WelcomeView()
         view.delegate = self
         hostingController = UIHostingController(rootView: view)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(hostingController.view)
-        
-        hostingController.view.frame = self.view.frame
-        
+        self.view.addConstraints([
+            hostingController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            hostingController.view.heightAnchor.constraint(equalTo: self.view.heightAnchor)])
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    
     
     func userTappedSignInButton() {
         OIDAuthorizationService.discoverConfiguration(forIssuer: AppAuthConstants.kIssuer) { (configuration, error) in
@@ -49,9 +57,14 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
                                 
                    appDelegate.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: self) { (authState, error) in
                                     if let authState = authState{
-                                        self.authState = authState
+                                        NetworkManager.shared.authState = authState
+                                        authState.stateChangeDelegate = NetworkManager.shared
+                                        NetworkManager.shared.saveState()
+                                        DispatchQueue.main.async {
+                                            self.dismiss(animated: true, completion: nil)
+                                        }
                                     } else {
-                                        self.authState = nil
+                                        NetworkManager.shared.authState = authState
                                     }
                                 }
                             }

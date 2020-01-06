@@ -9,18 +9,22 @@
 import Foundation
 import AppAuth
 
-enum Machines: String{
+enum ExistingMachines: String{
     case littleDrink = "littledrink"
     case bigDrink = "bigdrink"
 }
-class NetworkManager{
+class NetworkManager: NSObject{
     static let shared = NetworkManager()
-    let baseURL = "https://mizu.csh.rit.edu:443"
-    private var authState: OIDAuthState?
+    let baseURL = "https://drink.csh.rit.edu:443"
+    var authState: OIDAuthState?
     
-    private init(){}
+    private override init(){
+        super.init()
+        authState?.stateChangeDelegate = self
+    }
     
-    func getItems(in machine: Machines, completed: @escaping (Machine?, String?) -> Void){
+        
+    func getItems(in machine: ExistingMachines, completed: @escaping (Machine?, String?) -> Void){
         //drinks?machine=littledrink
         let endpoint = baseURL + "/drinks?machine=\(machine.rawValue)"
         // not a valid URL
@@ -44,32 +48,78 @@ class NetworkManager{
             
             let task = URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
                 if let _ = error{
-                    completed(nil, "an error occured")
+                    completed(nil, "an error occured when attempting to communicate with URL")
                 }
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else{
-                    completed(nil, "an error occured")
+                    completed(nil, "unexpected response code")
                     return
                 }
                 
                 guard let data = data else{
-                    completed(nil, "an error occured")
+                    completed(nil, "data invalid")
                     return
                 }
                 
                 do {
                     let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let machine = try decoder.decode(Machine.self, from: data)
-                    completed(machine ,nil)
+                    let machine = try decoder.decode(Machines.self, from: data)
+                    print(machine)
+                    
+                    completed(nil ,nil)
                 } catch{
+                    print(error.localizedDescription)
                     completed(nil, "an error occured")
                 }
             }
             //starts network call
             task.resume()
-            
         }
-        
+    }
+    
+    func saveState() {
+        print("ran")
+        var data: Data? = nil
+        if let authState = self.authState {
+            do{
+            try data = NSKeyedArchiver.archivedData(withRootObject: authState, requiringSecureCoding: true)
+            }
+            catch{
+                print("unable to save appauth state")
+            }
+        }
+        UserDefaults.standard.set(data, forKey: AppAuthConstants.kAppAuthStateKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func loadState() {
+           guard let data = UserDefaults.standard.object(forKey: AppAuthConstants.kAppAuthStateKey) as? Data else {
+               return
+           }
+        do{
+        if let authState = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? OIDAuthState {
+               self.setAuthState(authState)
+           }
+        }
+        catch{
+            print("unable to load state")
+        }
+       }
+    
+    func setAuthState(_ authState: OIDAuthState?) {
+        if (self.authState == authState) {
+            return
+        }
+        self.authState = authState;
+        self.authState?.stateChangeDelegate = self;
+        self.saveState()
     }
         
+}
+
+extension NetworkManager: OIDAuthStateChangeDelegate{
+    func didChange(_ state: OIDAuthState) {
+        print("state changed")
+        self.saveState()
+    }
+    
 }

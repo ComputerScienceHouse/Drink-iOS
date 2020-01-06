@@ -9,7 +9,7 @@
 import Foundation
 
 struct Slot: Codable{
-    var active: Bool
-    var empty: Bool
-    var item: [Item]
+    var active, empty: Bool
+    var number: Int
+    var item: Item
 }
