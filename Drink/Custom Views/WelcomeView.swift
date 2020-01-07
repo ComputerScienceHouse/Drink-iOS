@@ -21,7 +21,7 @@ struct WelcomeView: View {
     var body: some View {
         
         ZStack{
-            Color.primary
+            Color.clear
                 .edgesIgnoringSafeArea(.all).colorInvert()
             VStack{
                 VStack(alignment: .center, spacing: 0){

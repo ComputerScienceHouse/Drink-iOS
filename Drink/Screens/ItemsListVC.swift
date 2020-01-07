@@ -23,6 +23,7 @@ class ItemsListVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
         noDataLabel.text = "No Data"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "default-cell")
