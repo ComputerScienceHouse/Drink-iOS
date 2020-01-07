@@ -25,17 +25,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.windowScene = windowScene
             let tabBarController = DKTabBarVC()
-            tabBarController.viewControllers = [createRootNC(title: "Big Drink", machineRepresentation: "rectangle.fill"), createRootNC(title: "Little Drink", machineRepresentation: "hexagon.fill")]
+            tabBarController.viewControllers = [createRootNC(machineIdentifier: .bigDrink, machineIconName: "rectangle.fill"), createRootNC(machineIdentifier: .littleDrink, machineIconName: "hexagon.fill")]
             window.rootViewController = tabBarController
             self.window = window
             window.makeKeyAndVisible()
         }
     }
     
-    func createRootNC(title: String, machineRepresentation: String) -> UINavigationController{
-        let itemListVC = ItemsListVC()
-        itemListVC.title = title
-        itemListVC.tabBarItem = UITabBarItem(title: itemListVC.title, image: UIImage(systemName: machineRepresentation), selectedImage: nil)
+    func createRootNC(machineIdentifier: ExistingMachines, machineIconName: String) -> UINavigationController{
+        let itemListVC = ItemsListVC(machineIdentifer: machineIdentifier)
+        if machineIdentifier == .bigDrink{
+            itemListVC.title = "Big Drink"
+        }
+        else{
+            itemListVC.title = "Little Drink"
+        }
+        itemListVC.tabBarItem = UITabBarItem(title: itemListVC.title, image: UIImage(systemName: machineIconName), selectedImage: nil)
         return UINavigationController(rootViewController: itemListVC)
     }
     

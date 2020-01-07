@@ -16,13 +16,19 @@ struct Machines: Codable{
 struct Machine: Codable{
     let displayName: String
     let isOnline: Bool
-    let slots: [Slot]
+    var slots: [Slot]
     
     enum CodingKeys: String, CodingKey {
         case displayName = "display_name"
         case isOnline = "is_online"
         case slots
     }
+    
+     mutating func removeEmptySlots() {
+        self.slots = slots.filter {
+              $0.item.name != "Empty"
+          }
+      }
     
 }
 

@@ -24,7 +24,7 @@ class NetworkManager: NSObject{
     }
     
         
-    func getItems(in machine: ExistingMachines, completed: @escaping (Machine?, String?) -> Void){
+    func getInfo(for machine: ExistingMachines, completed: @escaping (Machine?, String?) -> Void){
         //drinks?machine=littledrink
         let endpoint = baseURL + "/drinks?machine=\(machine.rawValue)"
         // not a valid URL
@@ -63,9 +63,11 @@ class NetworkManager: NSObject{
                 do {
                     let decoder = JSONDecoder()
                     let machine = try decoder.decode(Machines.self, from: data)
-                    print(machine)
+                    var selectedMachine = machine.machines[0]
+                    selectedMachine.removeEmptySlots()
                     
-                    completed(nil ,nil)
+        
+                    completed(selectedMachine ,nil)
                 } catch{
                     print(error.localizedDescription)
                     completed(nil, "an error occured")
@@ -75,6 +77,8 @@ class NetworkManager: NSObject{
             task.resume()
         }
     }
+    
+  
     
     func saveState() {
         var data: Data? = nil
