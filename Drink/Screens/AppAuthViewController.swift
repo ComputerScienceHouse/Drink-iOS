@@ -15,6 +15,8 @@ protocol WelcomeViewDelegate{
     func userTappedSignInButton()
 }
 
+let loginDismissedKey = "edu.rit.csh.loginDismissed"
+
 class AppAuthViewController: UIViewController, WelcomeViewDelegate {
     var hostingController: UIHostingController<WelcomeView>!
     
@@ -60,6 +62,7 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
                     authState.stateChangeDelegate = NetworkManager.shared
                     NetworkManager.shared.saveState()
                     DispatchQueue.main.async {
+                        self.postNotification()
                         self.dismiss(animated: true, completion: nil)
                     }
                 } else {
@@ -67,6 +70,12 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
                 }
             }
         }
+    }
+    
+    
+    private func postNotification(){
+        let name = Notification.Name(loginDismissedKey)
+        NotificationCenter.default.post(name: name, object: nil)
     }
     
 }

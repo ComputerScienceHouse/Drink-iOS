@@ -13,6 +13,7 @@ enum ExistingMachines: String{
     case littleDrink = "littledrink"
     case bigDrink = "bigdrink"
 }
+
 class NetworkManager: NSObject{
     static let shared = NetworkManager()
     let baseURL = "https://drink.csh.rit.edu:443"

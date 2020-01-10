@@ -12,8 +12,10 @@ import AppAuth
 
 struct WelcomeView: View {
     init() {
+        //work around to hide seperators in a SwiftUI List. Effects every table view so need to change this back after presenting view
         UITableView.appearance().separatorColor = .clear
     }
+    
     private var authState: OIDAuthState?
     var delegate: WelcomeViewDelegate?
     @State private var isPresented: Bool = false

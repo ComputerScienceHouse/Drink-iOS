@@ -28,9 +28,6 @@ class DKTabBarVC: UITabBarController {
             containerVC.isModalInPresentation = true
             self.present(containerVC, animated: true, completion: nil)
         }
-        else{
-            
-        }
     }
     
 }
