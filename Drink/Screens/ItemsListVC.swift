@@ -30,11 +30,34 @@ class ItemsListVC: UITableViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
         noDataLabel.text = "No Data"
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "default-cell")
+        tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
         refresh()
         createObserver()
-        UITableView.appearance().separatorColor = .separator
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: ProfilePictureButton(imageUrl: "https://profiles.csh.rit.edu/image/lontronix"))
+        tableView.separatorColor = .clear
+        tableView.backgroundColor = .clear
+        view.backgroundColor = .secondarySystemBackground
+        
+        //gradient
+        //https://spin.atomicobject.com/2018/06/21/resize-navbar-gradient-ios/
+        //https://medium.com/@blyscuit/ios-gradient-navigation-bar-ad9ba8b8c760
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 0)
+        var bounds = navigationController?.navigationBar.bounds
+        bounds?.size.height += UIApplication.shared.statusBarFrame.size.height
+        gradient.frame = bounds!
+        var image: UIImage?
+        UIGraphicsBeginImageContext(gradient.frame.size)
+        if let context = UIGraphicsGetCurrentContext() {
+            gradient.render(in: context)
+            image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch)
+        }
+        UIGraphicsEndImageContext()
+        navigationController?.navigationBar.tintColor = UIColor(patternImage: image!)
+        
+        
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: ProfilePictureButton(imageUrl: "https://profiles.csh.rit.edu/image/lontronix"))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "100 Credits", style: .plain, target: nil, action: nil)
        
 
@@ -80,8 +103,8 @@ class ItemsListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "default-cell")!
-        cell.textLabel!.text = "\(self.machine.contents!.slots[indexPath.row].item.name) (\(self.machine.contents!.slots[indexPath.row].item.price) credits)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTVC")! as! ItemTVC
+        cell.item = machine.contents?.slots[indexPath.row].item
         return cell
     }
     
@@ -91,7 +114,7 @@ class ItemsListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 62
+        return 72
     }
     
 }
