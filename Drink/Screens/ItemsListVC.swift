@@ -10,7 +10,8 @@ import UIKit
 
 class ItemsListVC: UITableViewController {
     var machine: (contents: Machine?, identifier: ExistingMachines)!
-        
+    var logoutButton: UIBarButtonItem!
+    
     init(machineIdentifer: ExistingMachines){
         super.init(style: .plain)
         self.machine = (nil, machineIdentifer)
@@ -32,6 +33,43 @@ class ItemsListVC: UITableViewController {
         tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
         refresh()
         createObserver()
+        displayLoadingView()
+        tableView.separatorColor = .clear
+        tableView.backgroundColor = .clear
+        view.backgroundColor = .secondarySystemBackground
+        logoutButton = UIBarButtonItem(title: "100 Credits", style: .plain, target: self, action: #selector(logOutButtonTapped))
+        navigationItem.rightBarButtonItem = logoutButton
+        
+        
+        
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if NetworkManager.shared.authState == nil{
+            let containerVC = AppAuthViewController()
+            containerVC.isModalInPresentation = true
+            self.present(containerVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func refresh(){
+        if NetworkManager.shared.authState != nil{
+            NetworkManager.shared.getInfo(for: self.machine.identifier){
+                machine, error in
+                self.machine.contents = machine
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.backgroundView = nil
+                    self.tableView.isScrollEnabled = true
+                }
+            }
+            
+        }
+    }
+    
+    func displayLoadingView(){
         let holderView = UIView()
         tableView.backgroundView = holderView
         let loadingView = LoadingView(frame: .zero)
@@ -42,42 +80,28 @@ class ItemsListVC: UITableViewController {
             loadingView.centerYAnchor.constraint(equalTo: holderView.centerYAnchor),
             loadingView.heightAnchor.constraint(equalToConstant: 350),
             loadingView.widthAnchor.constraint(equalToConstant: 300)
-        
+            
         ])
-        tableView.separatorColor = .clear
-        tableView.backgroundColor = .clear
-        view.backgroundColor = .secondarySystemBackground
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "100 Credits", style: .plain, target: nil, action: nil)
-       
-
-        
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    @objc func refresh(){
-        print("refresh called")
-        if NetworkManager.shared.authState != nil{
-                   NetworkManager.shared.getInfo(for: self.machine.identifier){
-                       machine, error in
-                       self.machine.contents = machine
-                       DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                            self.tableView.backgroundView = nil
-                            self.tableView.isScrollEnabled = true
-                       }
-                   }
-                   
-               }
+    func reset(){
+        machine.contents = nil
+        tableView.reloadData()
+        displayLoadingView()
+        self.present(AppAuthViewController(), animated: true, completion: nil)
         
     }
-    
-    @objc func profileButtonTapped(){
-        
+    @objc func logOutButtonTapped(){
+        let alert = UIAlertController(title: "Sign Out?", message: "Are you sure you would like to sign out?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {
+            alert in
+            NetworkManager.shared.signOut()
+            self.reset()
+            
+            
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func createObserver(){

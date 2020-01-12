@@ -117,6 +117,11 @@ class NetworkManager: NSObject{
         self.authState?.stateChangeDelegate = self;
         self.saveState()
     }
+    
+    func signOut(){
+        self.authState = nil
+        self.saveState()
+    }
         
 }
 

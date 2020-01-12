@@ -15,7 +15,6 @@ protocol WelcomeViewDelegate{
     func userTappedSignInButton()
 }
 
-let loginDismissedKey = "edu.rit.csh.loginDismissed"
 
 class AppAuthViewController: UIViewController, WelcomeViewDelegate {
     var hostingController: UIHostingController<WelcomeView>!

@@ -23,11 +23,7 @@ class DKTabBarVC: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if NetworkManager.shared.authState == nil{
-            let containerVC = AppAuthViewController()
-            containerVC.isModalInPresentation = true
-            self.present(containerVC, animated: true, completion: nil)
-        }
+      
     }
     
 }
