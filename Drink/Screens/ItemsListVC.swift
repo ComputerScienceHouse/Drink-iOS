@@ -9,9 +9,8 @@
 import UIKit
 
 class ItemsListVC: UITableViewController {
-    var noDataLabel = UILabel()
     var machine: (contents: Machine?, identifier: ExistingMachines)!
-    
+        
     init(machineIdentifer: ExistingMachines){
         super.init(style: .plain)
         self.machine = (nil, machineIdentifer)
