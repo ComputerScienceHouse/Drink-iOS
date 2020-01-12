@@ -16,7 +16,7 @@ class ItemTVC: UITableViewCell {
         didSet{
             itemNameLabel.text = item.name
             priceView.priceLabel.text = "\(item.price)"
-            priceView.userCanAffordItem = item.price > 100
+            priceView.userCanAffordItem = item.price > 100 // hard coded value
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,6 +32,7 @@ class ItemTVC: UITableViewCell {
         backgroundColor = .clear
         itemNameLabel.translatesAutoresizingMaskIntoConstraints = false
         itemNameLabel.textColor = .label
+        itemNameLabel.numberOfLines = 0
         let containerView = UIView()
         containerView.backgroundColor = .systemBackground
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,11 +46,7 @@ class ItemTVC: UITableViewCell {
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5.0)
         ])
         containerView.addSubview(itemNameLabel)
-        containerView.addConstraints([
-            itemNameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            itemNameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10.0),
-            itemNameLabel.heightAnchor.constraint(equalToConstant: 25.0)
-        ])
+        
         containerView.addSubview(priceView)
         priceView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addConstraints([
@@ -58,6 +55,12 @@ class ItemTVC: UITableViewCell {
             priceView.heightAnchor.constraint(equalToConstant: 42.0),
             priceView.widthAnchor.constraint(equalToConstant: 80.0)
         ])
+        containerView.addConstraints([
+            itemNameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            itemNameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10.0),
+            itemNameLabel.rightAnchor.constraint(equalTo: priceView.leftAnchor, constant: -5.0)
+        ])
+        
         
         
         

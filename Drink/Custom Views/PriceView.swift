@@ -36,8 +36,8 @@ class PriceView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        priceLabel.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height / 2.0)
-        label.frame = CGRect(x: 0, y: self.frame.height / 2.0, width: self.frame.width, height: self.frame.height / 2.0)
+        priceLabel.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height / 2.0)
+        label.frame = CGRect(x: 0, y: self.bounds.height / 2.0, width: self.bounds.width, height: self.bounds.height / 2.0)
     }
     
     fileprivate func setupUI(){

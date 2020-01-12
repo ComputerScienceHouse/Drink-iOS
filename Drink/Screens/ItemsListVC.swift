@@ -29,35 +29,26 @@ class ItemsListVC: UITableViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        noDataLabel.text = "No Data"
+        tableView.isScrollEnabled = false
         tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
         refresh()
         createObserver()
+        let holderView = UIView()
+        tableView.backgroundView = holderView
+        let loadingView = LoadingView(frame: .zero)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        holderView.addSubview(loadingView)
+        holderView.addConstraints([
+            loadingView.centerXAnchor.constraint(equalTo: holderView.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: holderView.centerYAnchor),
+            loadingView.heightAnchor.constraint(equalToConstant: 350),
+            loadingView.widthAnchor.constraint(equalToConstant: 300)
+        
+        ])
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
         view.backgroundColor = .secondarySystemBackground
-        
-        //gradient
-        //https://spin.atomicobject.com/2018/06/21/resize-navbar-gradient-ios/
-        //https://medium.com/@blyscuit/ios-gradient-navigation-bar-ad9ba8b8c760
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.red.cgColor, UIColor.black.cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 0)
-        var bounds = navigationController?.navigationBar.bounds
-        bounds?.size.height += UIApplication.shared.statusBarFrame.size.height
-        gradient.frame = bounds!
-        var image: UIImage?
-        UIGraphicsBeginImageContext(gradient.frame.size)
-        if let context = UIGraphicsGetCurrentContext() {
-            gradient.render(in: context)
-            image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch)
-        }
-        UIGraphicsEndImageContext()
-        navigationController?.navigationBar.tintColor = UIColor(patternImage: image!)
-        
-        
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: ProfilePictureButton(imageUrl: "https://profiles.csh.rit.edu/image/lontronix"))
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "100 Credits", style: .plain, target: nil, action: nil)
        
 
@@ -76,7 +67,9 @@ class ItemsListVC: UITableViewController {
                        machine, error in
                        self.machine.contents = machine
                        DispatchQueue.main.async {
-                           self.tableView.reloadData()
+                            self.tableView.reloadData()
+                            self.tableView.backgroundView = nil
+                            self.tableView.isScrollEnabled = true
                        }
                    }
                    
