@@ -16,7 +16,7 @@ class ItemTVC: UITableViewCell {
         didSet{
             itemNameLabel.text = item.name
             priceView.priceLabel.text = "\(item.price)"
-            priceView.userCanAffordItem = item.price > 100 // hard coded value
+            priceView.userCanAffordItem = item.price <= NetworkManager.shared.user!.numCredits
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,7 +34,7 @@ class ItemTVC: UITableViewCell {
         itemNameLabel.textColor = .label
         itemNameLabel.numberOfLines = 0
         let containerView = UIView()
-        containerView.backgroundColor = .systemBackground
+        containerView.backgroundColor = .secondarySystemBackground
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 8.0
         self.contentView.addSubview(containerView)

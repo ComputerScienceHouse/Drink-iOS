@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct User{
-    var username: String!
+struct User: Codable{
+    var username: String
+    var numCredits: Int = 0
 }

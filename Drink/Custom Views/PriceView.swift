@@ -27,7 +27,6 @@ class PriceView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        backgroundColor = .systemRed
     }
     
     required init?(coder: NSCoder) {

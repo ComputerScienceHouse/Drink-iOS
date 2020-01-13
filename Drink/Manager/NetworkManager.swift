@@ -18,13 +18,40 @@ class NetworkManager: NSObject{
     static let shared = NetworkManager()
     let baseURL = "https://drink.csh.rit.edu:443"
     var authState: OIDAuthState?
+    var user: User? {
+        didSet{
+            saveUser()
+        }
+    }
     
     private override init(){
         super.init()
         authState?.stateChangeDelegate = self
     }
     
+    //called after fetching user for the first time, saves to user defaults.
+     func saveUser(){
+        do{
+            let encodedUser = try PropertyListEncoder().encode(user)
+            UserDefaults.standard.set(encodedUser, forKey:"user")
+
+        }
+        catch{
+            print(error)
+        }
         
+    }
+    
+    func loadUser(){
+
+        if let data = UserDefaults.standard.value(forKey:"user") as? Data {
+            self.user = try! PropertyListDecoder().decode(User.self, from: data)
+          
+        }
+        
+    }
+    
+    
     func getInfo(for machine: ExistingMachines, completed: @escaping (Machine?, String?) -> Void){
         //drinks?machine=littledrink
         let endpoint = baseURL + "/drinks?machine=\(machine.rawValue)"
@@ -67,7 +94,7 @@ class NetworkManager: NSObject{
                     var selectedMachine = machine.machines[0]
                     selectedMachine.removeEmptySlots()
                     
-        
+                    
                     completed(selectedMachine ,nil)
                 } catch{
                     print(error.localizedDescription)
@@ -79,13 +106,36 @@ class NetworkManager: NSObject{
         }
     }
     
-  
+    func getDrinkCreditsForUser(completed: @escaping (Int) -> Void){
+        let endpoint = baseURL + "/users/credits?uid=\(user!.username)"
+        self.authState?.performAction(){
+            (accessToken, idToken, error) in
+            var urlRequest = URLRequest(url: URL(string: endpoint)!)
+            urlRequest.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken!)"]
+            
+            let task = URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
+                do{
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
+                   let userInfo = json["user"] as! [String : AnyObject]
+                    let drinkBalance = userInfo["drinkBalance"] as! String
+                    self.user?.numCredits = Int(drinkBalance)!
+                    self.saveUser()
+                    completed(Int(drinkBalance)!)
+                }
+                catch{
+                    print("an error has occured when fetching drink credits")
+                }
+            }
+            task.resume()
+            
+        }
+    }
     
     func saveState() {
         var data: Data? = nil
         if let authState = self.authState {
             do{
-            try data = NSKeyedArchiver.archivedData(withRootObject: authState, requiringSecureCoding: true)
+                try data = NSKeyedArchiver.archivedData(withRootObject: authState, requiringSecureCoding: true)
             }
             catch{
                 print("unable to save appauth state")
@@ -96,18 +146,18 @@ class NetworkManager: NSObject{
     }
     
     func loadState() {
-           guard let data = UserDefaults.standard.object(forKey: AppAuthConstants.kAppAuthStateKey) as? Data else {
-               return
-           }
+        guard let data = UserDefaults.standard.object(forKey: AppAuthConstants.kAppAuthStateKey) as? Data else {
+            return
+        }
         do{
-        if let authState = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? OIDAuthState {
-               self.setAuthState(authState)
-           }
+            if let authState = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? OIDAuthState {
+                self.setAuthState(authState)
+            }
         }
         catch{
             print("unable to load state")
         }
-       }
+    }
     
     func setAuthState(_ authState: OIDAuthState?) {
         if (self.authState == authState) {
@@ -118,11 +168,13 @@ class NetworkManager: NSObject{
         self.saveState()
     }
     
+    
     func signOut(){
         self.authState = nil
+        self.user = nil
         self.saveState()
     }
-        
+    
 }
 
 extension NetworkManager: OIDAuthStateChangeDelegate{

@@ -31,17 +31,15 @@ class ItemsListVC: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.isScrollEnabled = false
         tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
+        NetworkManager.shared.loadUser()
         refresh()
         createObserver()
         displayLoadingView()
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
-        view.backgroundColor = .secondarySystemBackground
-        logoutButton = UIBarButtonItem(title: "100 Credits", style: .plain, target: self, action: #selector(logOutButtonTapped))
+        view.backgroundColor = .systemBackground
+        logoutButton = UIBarButtonItem(title: "? Credits", style: .plain, target: self, action: #selector(logOutButtonTapped))
         navigationItem.rightBarButtonItem = logoutButton
-        
-        
-        
     }
     
     
@@ -55,16 +53,27 @@ class ItemsListVC: UITableViewController {
     }
     
     @objc func refresh(){
+        
         if NetworkManager.shared.authState != nil{
-            NetworkManager.shared.getInfo(for: self.machine.identifier){
-                machine, error in
-                self.machine.contents = machine
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.tableView.backgroundView = nil
-                    self.tableView.isScrollEnabled = true
+            if NetworkManager.shared.user != nil{
+                NetworkManager.shared.getDrinkCreditsForUser { (numCredits) in
+                    DispatchQueue.main.async {
+                        NetworkManager.shared.getInfo(for: self.machine.identifier){
+                                      machine, error in
+                                      self.machine.contents = machine
+                                      DispatchQueue.main.async {
+                                          self.tableView.reloadData()
+                                          self.tableView.backgroundView = nil
+                                          self.tableView.isScrollEnabled = true
+                                          self.logoutButton.title = "\(numCredits) Credits"
+
+                                      }
+                                  }
+                    }
                 }
             }
+            
+          
             
         }
     }
@@ -80,7 +89,6 @@ class ItemsListVC: UITableViewController {
             loadingView.centerYAnchor.constraint(equalTo: holderView.centerYAnchor),
             loadingView.heightAnchor.constraint(equalToConstant: 350),
             loadingView.widthAnchor.constraint(equalToConstant: 300)
-            
         ])
     }
     

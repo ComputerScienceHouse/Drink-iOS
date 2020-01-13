@@ -60,16 +60,47 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
                     NetworkManager.shared.authState = authState
                     authState.stateChangeDelegate = NetworkManager.shared
                     NetworkManager.shared.saveState()
-                    DispatchQueue.main.async {
-                        self.postNotification()
-                        self.dismiss(animated: true, completion: nil)
+                    //fetching userinfo
+                    authState.performAction(){
+                        (accessToken, idToken, error) in
+                        let userinfoEndpoint = authState.lastAuthorizationResponse.request.configuration.discoveryDocument!.userinfoEndpoint
+                        var urlRequest = URLRequest(url: userinfoEndpoint!)
+                        urlRequest.allHTTPHeaderFields = ["Authorization":"Bearer \(accessToken!)"]
+                        
+                        let task = URLSession.shared.dataTask(with: urlRequest){ data, response, error in
+                            
+                            DispatchQueue.main.async {
+                                
+                                var json: [AnyHashable: Any]?
+                                do {
+                                    json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
+                                } catch {
+                                    //self.logMessage("JSON Serialization Error")
+                                }
+                                
+                                if let json = json {
+                                    DispatchQueue.main.async {
+                                        NetworkManager.shared.user = User(username: json["preferred_username"] as! String)
+                                        self.postNotification()
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                } else {
+                                    NetworkManager.shared.authState = authState
+                                }
+                                
+                            }
+                        }
+                        task.resume()
                     }
-                } else {
-                    NetworkManager.shared.authState = authState
+             
+                    
                 }
+                
             }
         }
     }
+    
+    
     
     
     private func postNotification(){

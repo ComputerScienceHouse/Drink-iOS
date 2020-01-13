@@ -26,7 +26,7 @@ struct Machine: Codable{
     
      mutating func removeEmptySlots() {
         self.slots = slots.filter {
-              $0.item.name != "Empty"
+            $0.item.name != "Empty" && !$0.empty
           }
       }
     
