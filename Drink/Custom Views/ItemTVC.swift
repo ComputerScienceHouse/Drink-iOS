@@ -11,12 +11,13 @@ import UIKit
 class ItemTVC: UITableViewCell {
     private var itemNameLabel = UILabel()
     private var priceView: PriceView = PriceView()
+    var delegate: ItemsListTVCDelegate?
     
-    var item: Item! {
+    var slot: Slot! {
         didSet{
-            itemNameLabel.text = item.name
-            priceView.priceLabel.text = "\(item.price)"
-            priceView.userCanAffordItem = item.price <= NetworkManager.shared.user!.numCredits
+            itemNameLabel.text = slot.item.name
+            priceView.priceLabel.text = "\(slot.item.price)"
+            priceView.userCanAffordItem = slot.item.price <= NetworkManager.shared.user!.numCredits
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,9 +62,16 @@ class ItemTVC: UITableViewCell {
             itemNameLabel.rightAnchor.constraint(equalTo: priceView.leftAnchor, constant: -5.0)
         ])
         
+        containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cellTapped)))
+        containerView.isUserInteractionEnabled = true
         
         
         
+        
+    }
+    
+    @objc func cellTapped(){
+        self.delegate?.userDidSelect(slot: self.slot)
     }
     
 }

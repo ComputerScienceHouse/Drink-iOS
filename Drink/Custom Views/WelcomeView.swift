@@ -51,7 +51,7 @@ struct WelcomeView: View {
                 }
                 List{
                     FeatureView(feature: Feature(glyph: "checkmark.shield.fill", name: "View Drinks", description: "View what drinks are currently in stock and drop what you want."))
-                    FeatureView(feature: Feature(glyph: "mic.fill", name: "Dication", description: "Ask Siri to drop a drink."))
+                    //FeatureView(feature: Feature(glyph: "mic.fill", name: "Dication", description: "Ask Siri to drop a drink."))
                     
                 }
                 .padding(.leading, 30)

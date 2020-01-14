@@ -7,8 +7,14 @@
 //
 
 import UIKit
+protocol ItemsListTVCDelegate{
+    func userDidSelect(slot: Slot)
+}
+
+
 
 class ItemsListVC: UITableViewController {
+    //TODO: Determine whether tuple is still necessary
     var machine: (contents: Machine?, identifier: ExistingMachines)!
     var logoutButton: UIBarButtonItem!
     
@@ -53,7 +59,7 @@ class ItemsListVC: UITableViewController {
     }
     
     @objc func refresh(){
-        
+        //TODO: replace with gaurd statements
         if NetworkManager.shared.authState != nil{
             if NetworkManager.shared.user != nil{
                 NetworkManager.shared.getDrinkCreditsForUser { (numCredits) in
@@ -94,6 +100,7 @@ class ItemsListVC: UITableViewController {
     
     func reset(){
         machine.contents = nil
+        logoutButton.title = "? Credits"
         tableView.reloadData()
         displayLoadingView()
         self.present(AppAuthViewController(), animated: true, completion: nil)
@@ -128,7 +135,8 @@ class ItemsListVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTVC")! as! ItemTVC
-        cell.item = machine.contents?.slots[indexPath.row].item
+        cell.slot = machine.contents?.slots[indexPath.row]
+        cell.delegate = self
         return cell
     }
     
@@ -140,5 +148,17 @@ class ItemsListVC: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
     }
+    
+}
+
+extension ItemsListVC: ItemsListTVCDelegate{
+    func userDidSelect(slot: Slot) {
+        NetworkManager.shared.dropItem(in: slot.number, and: machine.identifier){
+            (item, error) in
+        }
+        print("item: \(slot.item.name) was select in slot \(slot.number)")
+        
+    }
+    
     
 }

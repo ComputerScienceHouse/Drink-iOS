@@ -30,11 +30,11 @@ class NetworkManager: NSObject{
     }
     
     //called after fetching user for the first time, saves to user defaults.
-     func saveUser(){
+    func saveUser(){
         do{
             let encodedUser = try PropertyListEncoder().encode(user)
             UserDefaults.standard.set(encodedUser, forKey:"user")
-
+            
         }
         catch{
             print(error)
@@ -43,10 +43,10 @@ class NetworkManager: NSObject{
     }
     
     func loadUser(){
-
+        
         if let data = UserDefaults.standard.value(forKey:"user") as? Data {
             self.user = try! PropertyListDecoder().decode(User.self, from: data)
-          
+            
         }
         
     }
@@ -106,6 +106,50 @@ class NetworkManager: NSObject{
         }
     }
     
+    func dropItem(in slot: Int, and machine: ExistingMachines, completed: @escaping (Item?, String?) -> Void){
+        let endpoint = baseURL + "/drinks/drop"
+        //Invalid URL
+        guard let url = URL(string: endpoint) else{
+            completed(nil, "Invalid URL to request items from a machine")
+            return
+        }
+        
+        
+        self.authState?.performAction{ accessToken, idToken, error in
+            guard let accessToken = accessToken else{
+                return
+            }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken)",
+                                                "Content-Type" : "application/json"]
+            urlRequest.httpMethod = "POST"
+            
+            let body: [String: Any] = [
+                "machine" : machine.rawValue,
+                "slot": slot
+            ]
+            do{
+                let data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+                let task = URLSession.shared.uploadTask(with: urlRequest, from: data){
+                    data, response, urlError in
+                    print(String(decoding: data!, as: UTF8.self))
+
+                }
+                task.resume()
+                
+            }
+            catch{
+                print(error)
+            }
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
     func getDrinkCreditsForUser(completed: @escaping (Int) -> Void){
         let endpoint = baseURL + "/users/credits?uid=\(user!.username)"
         self.authState?.performAction(){
@@ -115,8 +159,8 @@ class NetworkManager: NSObject{
             
             let task = URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
                 do{
-                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
-                   let userInfo = json["user"] as! [String : AnyObject]
+                    let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
+                    let userInfo = json["user"] as! [String : AnyObject]
                     let drinkBalance = userInfo["drinkBalance"] as! String
                     self.user?.numCredits = Int(drinkBalance)!
                     self.saveUser()

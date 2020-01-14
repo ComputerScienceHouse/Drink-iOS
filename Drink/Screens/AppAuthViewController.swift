@@ -23,6 +23,7 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
         super.viewDidLoad()
         var view = WelcomeView()
         view.delegate = self
+        self.isModalInPresentation = true
         hostingController = UIHostingController(rootView: view)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(hostingController.view)
