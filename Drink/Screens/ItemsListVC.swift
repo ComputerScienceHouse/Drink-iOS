@@ -59,6 +59,7 @@ class ItemsListVC: UITableViewController {
     }
     
     @objc func refresh(){
+        displayLoadingView()
         //TODO: replace with gaurd statements
         if NetworkManager.shared.authState != nil{
             if NetworkManager.shared.user != nil{
@@ -85,6 +86,8 @@ class ItemsListVC: UITableViewController {
     }
     
     func displayLoadingView(){
+        machine.contents = nil
+        tableView.reloadData()
         let holderView = UIView()
         tableView.backgroundView = holderView
         let loadingView = LoadingView(frame: .zero)
@@ -154,7 +157,7 @@ class ItemsListVC: UITableViewController {
 extension ItemsListVC: ItemsListTVCDelegate{
     func userDidSelect(slot: Slot) {
         displayDropDrinkModal(slot: slot)
-        print("item: \(slot.item.name) was select in slot \(slot.number)")
+        print("item: \(slot.item.name) was selected in slot \(slot.number)")
         
     }
     
@@ -163,18 +166,17 @@ extension ItemsListVC: ItemsListTVCDelegate{
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
             let alertController = UIAlertController(title: "🥤 Dropping Drink...", message: nil, preferredStyle: .alert)
             self.present(alertController, animated: true, completion: nil)
-            
             NetworkManager.shared.dropItem(in: slot.number, and: self.machine.identifier){
                (item, error) in
                 DispatchQueue.main.async {
                     alertController.dismiss(animated: true, completion: nil)
+                    self.refresh()
+
                 }
             }
         }))
         alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
-
-        
     }
     
 }

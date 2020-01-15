@@ -160,10 +160,10 @@ class NetworkManager: NSObject{
                 do{
                     let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String : Any]
                     let userInfo = json["user"] as! [String : AnyObject]
-                    let drinkBalance = userInfo["drinkBalance"] as! String
-                    self.user?.numCredits = Int(drinkBalance)!
+                    let drinkBalance = userInfo["drinkBalance"] as? String
+                    self.user?.numCredits = Int(drinkBalance ?? "0")!
                     self.saveUser()
-                    completed(Int(drinkBalance)!)
+                    completed(Int(drinkBalance ?? "0")!)
                 }
                 catch{
                     print("an error has occured when fetching drink credits")
