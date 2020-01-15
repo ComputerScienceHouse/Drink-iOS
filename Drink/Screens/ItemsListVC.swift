@@ -107,7 +107,7 @@ class ItemsListVC: UITableViewController {
         
     }
     @objc func logOutButtonTapped(){
-        let alert = UIAlertController(title: "Sign Out?", message: "Are you sure you would like to sign out?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sign Out?", message: "Are you sure you would like to sign out?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {
             alert in
             NetworkManager.shared.signOut()
@@ -153,12 +153,28 @@ class ItemsListVC: UITableViewController {
 
 extension ItemsListVC: ItemsListTVCDelegate{
     func userDidSelect(slot: Slot) {
-        NetworkManager.shared.dropItem(in: slot.number, and: machine.identifier){
-            (item, error) in
-        }
+        displayDropDrinkModal(slot: slot)
         print("item: \(slot.item.name) was select in slot \(slot.number)")
         
     }
     
+    func displayDropDrinkModal(slot: Slot){
+        let alertController = UIAlertController(title: "Confirm Drop", message: "Are you sure you would like to drop \(slot.item.name) for \(slot.item.price) credits?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action) in
+            let alertController = UIAlertController(title: "🥤 Dropping Drink...", message: nil, preferredStyle: .alert)
+            self.present(alertController, animated: true, completion: nil)
+            
+            NetworkManager.shared.dropItem(in: slot.number, and: self.machine.identifier){
+               (item, error) in
+                DispatchQueue.main.async {
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+
+        
+    }
     
 }

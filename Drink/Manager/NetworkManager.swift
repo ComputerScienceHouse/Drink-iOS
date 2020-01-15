@@ -132,22 +132,17 @@ class NetworkManager: NSObject{
                 let data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
                 let task = URLSession.shared.uploadTask(with: urlRequest, from: data){
                     data, response, urlError in
-                    print(String(decoding: data!, as: UTF8.self))
-
+                    completed(nil, nil)
+                    
                 }
                 task.resume()
                 
             }
             catch{
+                completed(nil, nil)
                 print(error)
             }
-            
-            
         }
-        
-        
-        
-        
     }
     
     func getDrinkCreditsForUser(completed: @escaping (Int) -> Void){
@@ -155,7 +150,11 @@ class NetworkManager: NSObject{
         self.authState?.performAction(){
             (accessToken, idToken, error) in
             var urlRequest = URLRequest(url: URL(string: endpoint)!)
-            urlRequest.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken!)"]
+            
+            guard let accessToken = accessToken else {
+                return
+            }
+            urlRequest.allHTTPHeaderFields = ["Authorization" : "Bearer \(accessToken)"]
             
             let task = URLSession.shared.dataTask(with: urlRequest){ (data, response, error) in
                 do{
