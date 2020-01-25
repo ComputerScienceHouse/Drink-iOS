@@ -11,6 +11,7 @@ import UIKit
 class ItemTVC: UITableViewCell {
     private var itemNameLabel = UILabel()
     private var priceView: PriceView = PriceView()
+    private var containerView = UIView()
     var delegate: ItemsListTVCDelegate?
     
     var slot: Slot! {
@@ -18,6 +19,15 @@ class ItemTVC: UITableViewCell {
             itemNameLabel.text = slot.item.name
             priceView.priceLabel.text = "\(slot.item.price)"
             priceView.userCanAffordItem = slot.item.price <= NetworkManager.shared.user!.numCredits
+            if !slot.active || slot.empty {
+                self.isUserInteractionEnabled = false
+                containerView.layer.opacity = 0.60
+            }
+            else{
+                
+            }
+            
+            
         }
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,11 +40,11 @@ class ItemTVC: UITableViewCell {
     }
     
     fileprivate func setup(){
+        
         backgroundColor = .clear
         itemNameLabel.translatesAutoresizingMaskIntoConstraints = false
         itemNameLabel.textColor = .label
         itemNameLabel.numberOfLines = 0
-        let containerView = UIView()
         containerView.backgroundColor = .secondarySystemBackground
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.cornerRadius = 8.0
@@ -64,9 +74,6 @@ class ItemTVC: UITableViewCell {
         
         containerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cellTapped)))
         containerView.isUserInteractionEnabled = true
-        
-        
-        
         
     }
     

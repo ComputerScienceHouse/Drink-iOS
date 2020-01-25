@@ -92,7 +92,8 @@ class NetworkManager: NSObject{
                     let decoder = JSONDecoder()
                     let machine = try decoder.decode(Machines.self, from: data)
                     var selectedMachine = machine.machines[0]
-                    selectedMachine.removeEmptySlots()
+                    //selectedMachine.removeEmptySlots()
+                    selectedMachine.sortSlots()
                     
                     
                     completed(selectedMachine ,nil)

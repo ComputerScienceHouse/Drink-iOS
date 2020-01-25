@@ -30,5 +30,9 @@ struct Machine: Codable{
           }
       }
     
+    mutating func sortSlots(){
+         self.slots.sort(by: { $0.number < $1.number })
+    }
+    
 }
 

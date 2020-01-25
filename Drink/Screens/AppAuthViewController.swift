@@ -49,10 +49,11 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
             let request = OIDAuthorizationRequest(configuration: config,
                                                   clientId: AppAuthConstants.kClientID,
                                                   clientSecret: AppAuthConstants.clientSecret,
-                                                  scopes: [OIDScopeOpenID, OIDScopeProfile],
+                                                  scopes: [OIDScopeOpenID, OIDScopeProfile, "offline_access"],
                                                   redirectURL: AppAuthConstants.kRedirectURL,
                                                   responseType: OIDResponseTypeCode,
                                                   additionalParameters: nil)
+            
             //performs authentication request
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             
@@ -62,12 +63,12 @@ class AppAuthViewController: UIViewController, WelcomeViewDelegate {
                     authState.stateChangeDelegate = NetworkManager.shared
                     NetworkManager.shared.saveState()
                     //fetching userinfo
+                    
                     authState.performAction(){
                         (accessToken, idToken, error) in
                         let userinfoEndpoint = authState.lastAuthorizationResponse.request.configuration.discoveryDocument!.userinfoEndpoint
                         var urlRequest = URLRequest(url: userinfoEndpoint!)
                         urlRequest.allHTTPHeaderFields = ["Authorization":"Bearer \(accessToken!)"]
-                        
                         let task = URLSession.shared.dataTask(with: urlRequest){ data, response, error in
                             
                             DispatchQueue.main.async {

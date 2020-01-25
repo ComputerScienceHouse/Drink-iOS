@@ -14,6 +14,7 @@
 		6E0B468C23C2AB030068710E /* AppAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD57723BB07A80078048D /* AppAuthViewController.swift */; };
 		6E33FC4C23CAB2F800F41D33 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33FC4B23CAB2F800F41D33 /* LoadingView.swift */; };
 		6E33FC4E23CAB5B500F41D33 /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33FC4D23CAB5B500F41D33 /* UIView + Ext.swift */; };
+		6E73F16723DBD02F00E92085 /* MachineStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E73F16623DBD02F00E92085 /* MachineStatusView.swift */; };
 		6E96301523C2F52F004D7542 /* ItemsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96301423C2F52F004D7542 /* ItemsListVC.swift */; };
 		6E96301A23C2F6B3004D7542 /* DKTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E96301823C2F637004D7542 /* DKTabBarVC.swift */; };
 		6ECBF47B23BAC98600370E7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ECBF47A23BAC98600370E7A /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		6E0B468A23C2A1540068710E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		6E33FC4B23CAB2F800F41D33 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6E33FC4D23CAB5B500F41D33 /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
+		6E73F16623DBD02F00E92085 /* MachineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineStatusView.swift; sourceTree = "<group>"; };
 		6E96301423C2F52F004D7542 /* ItemsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListVC.swift; sourceTree = "<group>"; };
 		6E96301823C2F637004D7542 /* DKTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTabBarVC.swift; sourceTree = "<group>"; };
 		6ECBF47723BAC98600370E7A /* CSH Drink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CSH Drink.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				6EDDD57923BB19BE0078048D /* WelcomeView.swift */,
+				6E73F16623DBD02F00E92085 /* MachineStatusView.swift */,
 				6ED5BD9523C575780039A348 /* ProfilePictureButton.swift */,
 				6ED5BD9B23C6E3830039A348 /* ItemTVC.swift */,
 				6ED5BD9D23C6E4490039A348 /* PriceView.swift */,
@@ -316,6 +319,7 @@
 				6E96301A23C2F6B3004D7542 /* DKTabBarVC.swift in Sources */,
 				6ED5BD9623C575780039A348 /* ProfilePictureButton.swift in Sources */,
 				6E0B468923C2A14D0068710E /* Slot.swift in Sources */,
+				6E73F16723DBD02F00E92085 /* MachineStatusView.swift in Sources */,
 				6ED5BD9823C588EF0039A348 /* User.swift in Sources */,
 				6ECBF47B23BAC98600370E7A /* AppDelegate.swift in Sources */,
 				6E0B468423C29C340068710E /* NetworkManager.swift in Sources */,
@@ -462,6 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.5;
 				DEVELOPMENT_TEAM = K36HYHZA7X;
 				INFOPLIST_FILE = Drink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -481,6 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.5;
 				DEVELOPMENT_TEAM = K36HYHZA7X;
 				INFOPLIST_FILE = Drink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
