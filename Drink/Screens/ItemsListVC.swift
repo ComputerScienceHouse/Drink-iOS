@@ -37,6 +37,13 @@ class ItemsListVC: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.isScrollEnabled = false
         tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
+        //navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)]
+        navigationController?.navigationBar.barTintColor = UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.backgroundColor = UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)
         NetworkManager.shared.loadUser()
         refresh()
         createObserver()
@@ -45,6 +52,7 @@ class ItemsListVC: UITableViewController {
         tableView.backgroundColor = .clear
         view.backgroundColor = .systemBackground
         logoutButton = UIBarButtonItem(title: "? Credits", style: .plain, target: self, action: #selector(logOutButtonTapped))
+        logoutButton.tintColor = .white
         navigationItem.rightBarButtonItem = logoutButton
     }
     
@@ -150,6 +158,10 @@ class ItemsListVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 72
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 40))
     }
     
 }

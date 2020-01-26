@@ -50,8 +50,8 @@ class ItemTVC: UITableViewCell {
         containerView.layer.cornerRadius = 8.0
         self.contentView.addSubview(containerView)
         contentView.addConstraints([
-            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5.0),
-            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5.0),
+            containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant:  10.0),
+            containerView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10.0),
             containerView.topAnchor.constraint(equalTo:
                 contentView.topAnchor, constant: 5.0),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5.0)

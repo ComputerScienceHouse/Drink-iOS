@@ -21,6 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.windowScene = windowScene
+            window.tintColor =  UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)
+            window.backgroundColor = UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)
             let tabBarController = DKTabBarVC()
             tabBarController.viewControllers = [createRootNC(machineIdentifier: .bigDrink, machineIconName: "rectangle.fill"), createRootNC(machineIdentifier: .littleDrink, machineIconName: "hexagon.fill")]
             window.rootViewController = tabBarController
