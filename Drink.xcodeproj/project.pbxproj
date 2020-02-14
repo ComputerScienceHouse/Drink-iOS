@@ -42,6 +42,7 @@
 		6E33FC4B23CAB2F800F41D33 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6E33FC4D23CAB5B500F41D33 /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		6E73F16623DBD02F00E92085 /* MachineStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineStatusView.swift; sourceTree = "<group>"; };
+		6E8C7DA923F75D210028AAE6 /* CSH Drink.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CSH Drink.entitlements"; sourceTree = "<group>"; };
 		6E96301423C2F52F004D7542 /* ItemsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListVC.swift; sourceTree = "<group>"; };
 		6E96301823C2F637004D7542 /* DKTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DKTabBarVC.swift; sourceTree = "<group>"; };
 		6ECBF47723BAC98600370E7A /* CSH Drink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CSH Drink.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +167,7 @@
 		6ECBF47923BAC98600370E7A /* Drink */ = {
 			isa = PBXGroup;
 			children = (
+				6E8C7DA923F75D210028AAE6 /* CSH Drink.entitlements */,
 				6E0B467C23C2971D0068710E /* Screens */,
 				6E0B468523C2A0D30068710E /* Models */,
 				6E0B468223C29C230068710E /* Manager */,
@@ -465,8 +467,10 @@
 			baseConfigurationReference = 1CC522C55648AF12A2A4AB91 /* Pods-Drink.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Drink/CSH Drink.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.2;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = K36HYHZA7X;
 				INFOPLIST_FILE = Drink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,8 +479,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.rit.csh.drink-ios";
 				PRODUCT_NAME = "CSH Drink";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -485,8 +490,10 @@
 			baseConfigurationReference = 3F9FC8CE29189E5D0B197C6B /* Pods-Drink.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Drink/CSH Drink.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.2;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = K36HYHZA7X;
 				INFOPLIST_FILE = Drink/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -495,8 +502,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.rit.csh.drink-ios";
 				PRODUCT_NAME = "CSH Drink";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
