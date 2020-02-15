@@ -64,6 +64,15 @@ class ItemsListVC: UITableViewController {
             containerVC.isModalInPresentation = true
             self.present(containerVC, animated: true, completion: nil)
         }
+        else{
+        NetworkManager.shared.getDrinkCreditsForUser { (numCredits) in
+            DispatchQueue.main.async {
+                self.logoutButton.title = "\(numCredits) Credits"
+            }
+
+        }
+        }
+        
     }
     
     @objc func refresh(){

@@ -43,12 +43,10 @@ class NetworkManager: NSObject{
     }
     
     func loadUser(){
-        
         if let data = UserDefaults.standard.value(forKey:"user") as? Data {
             self.user = try! PropertyListDecoder().decode(User.self, from: data)
             
         }
-        
     }
     
     
@@ -147,6 +145,7 @@ class NetworkManager: NSObject{
     }
     
     func getDrinkCreditsForUser(completed: @escaping (Int) -> Void){
+        
         let endpoint = baseURL + "/users/credits?uid=\(user!.username)"
         self.authState?.performAction(){
             (accessToken, idToken, error) in
