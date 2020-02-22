@@ -12,4 +12,5 @@ struct Slot: Codable{
     var active, empty: Bool
     var number: Int
     var item: Item
+    
 }

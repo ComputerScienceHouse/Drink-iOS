@@ -120,10 +120,7 @@ struct FeatureView: View {
         VStack(alignment: .leading){
             Text(feature.name)
                 .font(.system(size: 20, weight: .medium, design: .rounded))
-            
             Text(feature.description)
-                
-                
                 .font(.system(size: 17, weight: .regular, design: .rounded))
         }
         .padding(.leading, 20)

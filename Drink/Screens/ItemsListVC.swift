@@ -11,9 +11,8 @@ protocol ItemsListTVCDelegate{
     func userDidSelect(slot: Slot)
 }
 
-
-
 class ItemsListVC: UITableViewController {
+   
     //TODO: Determine whether tuple is still necessary
     var machine: (contents: Machine?, identifier: ExistingMachines)!
     var logoutButton: UIBarButtonItem!
@@ -33,13 +32,13 @@ class ItemsListVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView = UITableView(frame: .zero, style: .grouped)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
         tableView.isScrollEnabled = false
         tableView.register(ItemTVC.self, forCellReuseIdentifier: "ItemTVC")
-        //navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)]
+        tableView.register(MachineStatusView.self, forHeaderFooterViewReuseIdentifier: "statusView")
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        //navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)]
         navigationController?.navigationBar.barTintColor = UIColor(red: 176/255, green: 25/255, blue: 126/255, alpha: 1.00)
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -90,14 +89,11 @@ class ItemsListVC: UITableViewController {
                                           self.tableView.backgroundView = nil
                                           self.tableView.isScrollEnabled = true
                                           self.logoutButton.title = "\(numCredits) Credits"
-
                                       }
                                   }
                     }
                 }
             }
-            
-          
             
         }
     }
@@ -170,15 +166,41 @@ class ItemsListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 40))
+        if let contents = machine.contents{
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "statusView") as! MachineStatusView
+            
+            if machine.contents!.isOnline{
+                view.machineStatus = .enabled
+
+            }
+            else{
+                view.machineStatus = .disabled
+            }
+            return view
+        }
+        else{
+            return nil
+        }
+        
+       
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
 }
 
 extension ItemsListVC: ItemsListTVCDelegate{
     func userDidSelect(slot: Slot) {
-        displayDropDrinkModal(slot: slot)
-        print("item: \(slot.item.name) was selected in slot \(slot.number)")
+        if(NetworkManager.shared.user?.numCredits ?? 0 >= slot.item.price){
+            displayDropDrinkModal(slot: slot)
+        }
+        else{
+            let alertController = UIAlertController(title: "Too Few Drink Credits", message: "You don't have enough drink credits to drop this item. Contact a drink admin or deposit money into auto drink admin to get more credits.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
         
     }
     
