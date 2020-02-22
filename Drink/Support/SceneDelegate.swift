@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = tabBarController
             self.window = window
             window.makeKeyAndVisible()
+
         }
     }
     
@@ -40,7 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             itemListVC.title = "Little Drink"
         }
         itemListVC.tabBarItem = UITabBarItem(title: itemListVC.title, image: UIImage(systemName: machineIconName), selectedImage: nil)
-        return UINavigationController(rootViewController: itemListVC)
+        let navController = UINavigationController(rootViewController: itemListVC)
+        return navController
     }
     
    

@@ -12,7 +12,7 @@ protocol ItemsListTVCDelegate{
 }
 
 class ItemsListVC: UITableViewController {
-   
+
     //TODO: Determine whether tuple is still necessary
     var machine: (contents: Machine?, identifier: ExistingMachines)!
     var logoutButton: UIBarButtonItem!
