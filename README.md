@@ -10,7 +10,7 @@ that are at CSH.
 **The Welcome/Sign-In Screen:**
 
 <p align="center">
-  <img src="https://csh.rit.edu/~lontronix/iDrink/welcome-screen.png" width="352" height="423">
+  <img src="https://user-images.githubusercontent.com/31291523/78621375-0f6cfa00-7848-11ea-92b3-a1044e205056.PNG"/>
 </p>
 
 ## Current Features
