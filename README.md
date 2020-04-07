@@ -1,7 +1,7 @@
 # CSH Drink
 
 <p align="center">
-  <img src="https://csh.rit.edu/~lontronix/iDrink/icon.png">
+  <img src="https://user-images.githubusercontent.com/31291523/78622564-10535b00-784b-11ea-80eb-b50e8b8659aa.png">
 </p>
 
 CSH Drink is an app for iOS and macOS that allows members of Computer Science House (CSH) to drop drinks the internet connected vending machines 
