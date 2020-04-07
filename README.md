@@ -17,7 +17,8 @@ that are at CSH.
 Currently it is possible to see what drinks are in stock and drop one if you have enough drink credits
 
 <p align="center">
-  <img src="https://csh.rit.edu/~lontronix/iDrink/little-drink-drinks.png" width="352" height="423">
+  <img src="https://user-images.githubusercontent.com/31291523/78620755-7b4e6300-7846-11ea-8878-60cf826fdf3d.PNG" 
+   style="width: 50%; height: 50%"/>
 </p>
 
 
